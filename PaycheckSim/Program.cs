@@ -145,7 +145,58 @@ namespace PaycheckSim
 
             AnsiConsole.Write(_table);
 
-            Console.ReadLine();
+            string doSplit = AnsiConsole.Ask<string>("[red]Would you like to split to bank accounts (y/n)?[/]");
+            switch (doSplit.ToLower())
+            {
+                case "y":
+                    drawSplit(getTotalEarned(_overallHours));
+                    return;
+                case "n":
+                    Console.ReadLine();
+                    return;
+                default:
+                    Console.WriteLine("Invalid Input");
+                    return;
+            }
+        }
+
+        static void drawSplit(double _earned)
+        {
+            double _checking = (_earned * 0.25);
+            double _savings1 = (_earned * 0.25);
+            double _savings2 = (_earned * 0.22);
+            double _taxAccount = (_earned * 0.28);
+
+            Console.WriteLine(String.Format("{0}", _earned.ToString()));
+
+            var _table = new Table();
+            _table.AddColumns("Account", "To be deposited", "Percentage of Income");
+
+            _table.AddRow(
+                String.Format("[blue]{0}[/]", "Checking"),
+                String.Format("$[green]{0}[/]", _checking.ToString("#.00")),
+                String.Format("{0}", "25%")
+                );
+
+            _table.AddRow(
+                String.Format("[blue]{0}[/]", "Savings"),
+                String.Format("$[green]{0}[/]", _savings1.ToString("#.00")),
+                String.Format("{0}", "25%")
+                );
+
+            _table.AddRow(
+                String.Format("[blue]{0}[/]", "Flight Savings"),
+                String.Format("$[green]{0}[/]", _savings2.ToString("#.00")),
+                String.Format("{0}", "22%")
+                );
+
+            _table.AddRow(
+                String.Format("[blue]{0}[/]", "Tax"),
+                String.Format("$[green]{0}[/]", _taxAccount.ToString("#.00")),
+                String.Format("{0}", "28%")
+                );
+
+            AnsiConsole.Write(_table);
         }
     }
 }
