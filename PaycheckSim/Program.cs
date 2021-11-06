@@ -42,10 +42,11 @@ namespace PaycheckSim
 
             _hourlyRate = AnsiConsole.Ask<double>("[green]Enter hourly rate:[/]");
             _otHourlyRate = _hourlyRate + (_hourlyRate * 0.5);
+                Console.Clear();
 
             AnsiConsole.Status()
                 .Spinner(Spinner.Known.Pong)
-                .Start("Doing math stuff...", ctx =>
+                .Start("Doing calculation things...", ctx =>
                 {
                     addDay("Saturday", _hoursSa);
                     addDay("Sunday", _hoursSu);
@@ -196,8 +197,11 @@ namespace PaycheckSim
                 String.Format("{0}", "28%")
                 );
 
+            Console.Clear();
+
             AnsiConsole.Write(_table);
 
+            Console.WriteLine("Press ENTER to exit");
             Console.ReadLine();
         }
     }
