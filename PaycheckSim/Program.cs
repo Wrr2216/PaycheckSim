@@ -12,6 +12,8 @@ namespace PaycheckSim
     class Program
     {
         private static List<WorkDay> _wd = new List<WorkDay>();
+        static double _hourlyRate;
+        static double _otHourlyRate;
 
         static void Main(string[] args)
         {
@@ -36,6 +38,9 @@ namespace PaycheckSim
 
             double _hoursFr = AnsiConsole.Ask<double>("[green]Friday Hours?[/]");
                 Console.Clear();
+
+            _hourlyRate = AnsiConsole.Ask<double>("[green]Enter hourly rate:[/]");
+            _otHourlyRate = AnsiConsole.Ask<double>("[green]Enter hourly overtime rate:[/]");
 
             AnsiConsole.Status()
                 .Spinner(Spinner.Known.Pong)
@@ -70,10 +75,8 @@ namespace PaycheckSim
             double _reg = 12;
             double _ot = _hours - _reg;
             double _earned = 0;
-            double _hourlyRate = 47.0;
-            double _otRate = 70.5;
 
-            _earned = (_reg * Convert.ToInt32(_hourlyRate)) + (_ot * Convert.ToInt32(_otRate));
+            _earned = (_reg * Convert.ToInt32(_hourlyRate)) + (_ot * Convert.ToInt32(_otHourlyRate));
 
             return _earned;
         }
@@ -83,10 +86,8 @@ namespace PaycheckSim
             double _reg = 40;
             double _ot = _hours - 40;
             double _earned = 0;
-            double _hourlyRate = 47.0;
-            double _otRate = 70.5;
 
-            _earned = (_reg * Convert.ToInt32(_hourlyRate)) + (_ot * Convert.ToInt32(_otRate));
+            _earned = (_reg * Convert.ToInt32(_hourlyRate)) + (_ot * Convert.ToInt32(_otHourlyRate));
 
             return _earned;
         }
@@ -167,8 +168,6 @@ namespace PaycheckSim
             double _savings2 = (_earned * 0.22);
             double _taxAccount = (_earned * 0.28);
 
-            Console.WriteLine(String.Format("{0}", _earned.ToString()));
-
             var _table = new Table();
             _table.AddColumns("Account", "To be deposited", "Percentage of Income");
 
@@ -197,6 +196,8 @@ namespace PaycheckSim
                 );
 
             AnsiConsole.Write(_table);
+
+            Console.ReadLine();
         }
     }
 }
