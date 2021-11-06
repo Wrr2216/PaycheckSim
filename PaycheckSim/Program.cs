@@ -17,6 +17,7 @@ namespace PaycheckSim
 
         static void Main(string[] args)
         {
+            Console.Title = "Paycheck Simulator - WiRR";
 
             double _hoursSa = AnsiConsole.Ask<double>("[green]Saturday Hours?[/]");
                 Console.Clear();
@@ -40,7 +41,7 @@ namespace PaycheckSim
                 Console.Clear();
 
             _hourlyRate = AnsiConsole.Ask<double>("[green]Enter hourly rate:[/]");
-            _otHourlyRate = AnsiConsole.Ask<double>("[green]Enter hourly overtime rate:[/]");
+            _otHourlyRate = _hourlyRate + (_hourlyRate * 0.5);
 
             AnsiConsole.Status()
                 .Spinner(Spinner.Known.Pong)
@@ -53,7 +54,7 @@ namespace PaycheckSim
                     addDay("Wednesday", _hoursWe);
                     addDay("Thursday", _hoursTh);
                     addDay("Friday", _hoursFr);
-                    Thread.Sleep(2000);
+                    Thread.Sleep(500);
                 });
 
             drawCont(_wd);
